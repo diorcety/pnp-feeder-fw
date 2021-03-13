@@ -70,7 +70,7 @@ void FeedbackUpdate() {
 		}
 		
 		/* Update motor state */
-		FEEDER_FEEDBACK_TRIGGERED(feedback_new_value) ? MotorStop() : MotorStart();
+		(FEEDER_FEEDBACK_TRIGGERED(feedback_new_value) || !MotorEnabled()) ? MotorStop() : MotorStart();
 			
 		/* Update last feedback change value */
 		feedback_value = feedback_new_value;

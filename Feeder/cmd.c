@@ -125,7 +125,19 @@ void Handle() {
         } else {
             CMD_ERROR_IV();
         }
-    } else if (CMD_EQ(N)) {
+    } else if (CMD_EQ(M)) {
+		if (NO_ARG()) {
+			CMD_REPLY_D(MotorEnabled());
+		} else if (ARG_D_EQ(1)) {
+			MotorEnable();
+			CMD_OK();
+		} else if (ARG_D_EQ(0)) {
+			MotorDisable();
+			CMD_OK();
+		} else {
+			CMD_ERROR_IV();
+		}
+    }else if (CMD_EQ(N)) {
         if (NO_ARG()) {
             CMD_REPLY_C(configuration.name);
         } else {

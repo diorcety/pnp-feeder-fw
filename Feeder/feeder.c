@@ -50,6 +50,19 @@ uint8_t FeedbackEnabled() {
     return (configuration.options & FEEDER_OPTION_IGNORE_FEEDBACK_bm) == 0;
 }
 
+void MotorEnable() {
+	configuration.options &= ~FEEDER_OPTION_MOTOR_DISABLED_bm;
+}
+
+void MotorDisable() {
+	configuration.options |= FEEDER_OPTION_MOTOR_DISABLED_bm;
+}
+
+uint8_t MotorEnabled() {
+	return (configuration.options & FEEDER_OPTION_MOTOR_DISABLED_bm) == 0;
+}
+
+
 void FeederInit() {
     if (FeederEnabled()) {
         FeederEnable();

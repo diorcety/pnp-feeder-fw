@@ -7,6 +7,7 @@
 #define FEEDER_MECHANICAL_ADVANCE_LENGTH 4
 #define FEEDER_OPTION_DISABLED_bm 0x01
 #define FEEDER_OPTION_IGNORE_FEEDBACK_bm 0x02
+#define FEEDER_OPTION_MOTOR_DISABLED_bm 0x04
 #define FEEDER_FEEDBACK_TRIGGERED(x) (!x)
 #define FEEDER_MOTOR_ON 1
 #define FEEDER_MOTOR_OFF 0
@@ -39,6 +40,9 @@ uint8_t FeederEnabled();
 void FeedbackEnable();
 void FeedbackDisable();
 uint8_t FeedbackEnabled();
+void MotorEnable();
+void MotorDisable();
+uint8_t MotorEnabled();
 void FeederInit();
 void FeederUpdate();
 
