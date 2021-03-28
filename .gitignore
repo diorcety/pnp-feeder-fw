@@ -1,6 +1,5 @@
 .sync-exclude.lst
 .vs
-*.componentinfo.xml
 Feeder/Debug
 Feeder/Feeder.X
 Feeder/Release
