@@ -70,7 +70,7 @@ void FeedbackUpdate() {
 		}
 		
 		/* Update motor state */
-		(FEEDER_FEEDBACK_TRIGGERED(feedback_new_value) || !MotorEnabled()) ? MotorStop() : MotorStart();
+		FEEDER_FEEDBACK_TRIGGERED(feedback_new_value) ? MotorStop() : MotorStart();
 			
 		/* Update last feedback change value */
 		feedback_value = feedback_new_value;
@@ -102,7 +102,25 @@ void MotorStop() {
 void MotorInit() {
     /* Motor */
     VPORTA.OUT &= ~PIN0_bm;
+    if (MotorEnabled()) {
+        MotorEnable();
+    } else {
+        MotorDisable();
+    }
+}
+
+void MotorEnable() {
+    configuration.options &= ~FEEDER_OPTION_MOTOR_DISABLED_bm;
     VPORTA.DIR |= PIN0_bm;
+}
+
+void MotorDisable() {
+    configuration.options |= FEEDER_OPTION_MOTOR_DISABLED_bm;
+    VPORTA.DIR &= ~PIN0_bm;
+}
+
+uint8_t MotorEnabled() {
+    return (configuration.options & FEEDER_OPTION_MOTOR_DISABLED_bm) == 0;
 }
 
 void ServoStart() {

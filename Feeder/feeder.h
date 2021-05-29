@@ -40,9 +40,6 @@ uint8_t FeederEnabled();
 void FeedbackEnable();
 void FeedbackDisable();
 uint8_t FeedbackEnabled();
-void MotorEnable();
-void MotorDisable();
-uint8_t MotorEnabled();
 void FeederInit();
 void FeederUpdate();
 

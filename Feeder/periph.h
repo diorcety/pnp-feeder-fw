@@ -9,6 +9,9 @@ void FeedbackInit();
 void MotorStart();
 void MotorStop();
 void MotorInit();
+void MotorEnable();
+void MotorDisable();
+uint8_t MotorEnabled();
 
 void ServoStart();
 void ServoStop();
