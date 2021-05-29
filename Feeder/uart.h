@@ -6,7 +6,7 @@
     c = UARTRead();                                                                                                    \
     if (c == C_RST)                                                                                                    \
         MCUReset();
-		
+
 #define UART_MAX_BAUDRATE 7
 
 char UARTRead();

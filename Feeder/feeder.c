@@ -27,9 +27,9 @@ void FeederEnable() {
 }
 
 void FeederDisable() {
-	TimerStop();
-	MotorStop();
-	ServoStop();
+    TimerStop();
+    MotorStop();
+    ServoStop();
     configuration.options |= FEEDER_OPTION_DISABLED_bm;
     state = sDISABLED;
 }

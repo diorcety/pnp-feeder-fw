@@ -98,9 +98,9 @@ void Handle() {
             CMD_ERROR_IS();
         }
     } else if (CMD_EQ(V)) {
-		if (NO_ARG()) {
-			CMD_REPLY_D(state);
-		}
+        if (NO_ARG()) {
+            CMD_REPLY_D(state);
+        }
     } else if (CMD_EQ(E)) {
         if (NO_ARG()) {
             CMD_REPLY_D(FeederEnabled());
@@ -126,23 +126,23 @@ void Handle() {
             CMD_ERROR_IV();
         }
     } else if (CMD_EQ(M)) {
-		if (NO_ARG()) {
-			CMD_REPLY_D(MotorEnabled());
-		} else if (ARG_D_EQ(1)) {
-			MotorEnable();
-			CMD_OK();
-		} else if (ARG_D_EQ(0)) {
-			MotorDisable();
-			CMD_OK();
-		} else {
-			CMD_ERROR_IV();
-		}
+        if (NO_ARG()) {
+            CMD_REPLY_D(MotorEnabled());
+        } else if (ARG_D_EQ(1)) {
+            MotorEnable();
+            CMD_OK();
+        } else if (ARG_D_EQ(0)) {
+            MotorDisable();
+            CMD_OK();
+        } else {
+            CMD_ERROR_IV();
+        }
     }else if (CMD_EQ(N)) {
         if (NO_ARG()) {
             CMD_REPLY_C(configuration.name);
         } else {
             configuration.name = arg[0];
-			CMD_OK();
+            CMD_OK();
         }
     } else if (CMD_EQ(B)) {
         if (NO_ARG()) {
@@ -150,7 +150,7 @@ void Handle() {
         } else {
             if (ARG_D_RANGE(0, UART_MAX_BAUDRATE)) {
                 UARTSet(arg_int);
-				CMD_OK();
+                CMD_OK();
             } else {
                 CMD_ERROR_IV();
             }
@@ -211,16 +211,16 @@ void Handle() {
             }
         }
     } else if (CMD_EQ(P)) {
-		if (NO_ARG()) {
-			CMD_REPLY_D(ServoGet());
-		} else {
-			if (ARG_D_RANGE(FEEDER_SERVO_MIN, FEEDER_SERVO_MAX)) {
-				ServoSet(arg_int);
-				CMD_OK();
-			} else {
-				CMD_ERROR_IV();
-			}
-		}
+        if (NO_ARG()) {
+            CMD_REPLY_D(ServoGet());
+        } else {
+            if (ARG_D_RANGE(FEEDER_SERVO_MIN, FEEDER_SERVO_MAX)) {
+                ServoSet(arg_int);
+                CMD_OK();
+            } else {
+                CMD_ERROR_IV();
+            }
+        }
     }
 
 ERROR_IC:

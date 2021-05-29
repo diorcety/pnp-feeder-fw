@@ -50,16 +50,16 @@ idle:
     UARTTx();
 
     /* Handle the command */
-	Handle();
-	
-	/* Reply */
-	i = 0;
-	while (cmd[i] != '\0')
-		UARTSend(cmd[i++]);
-	UARTSend('\r');
-		
-	UARTWaitTx();
-	
+    Handle();
+
+    /* Reply */
+    i = 0;
+    while (cmd[i] != '\0')
+        UARTSend(cmd[i++]);
+    UARTSend('\r');
+
+    UARTWaitTx();
+
     goto idle;
 discard:
     /* Wait for frame end */
@@ -75,6 +75,6 @@ ISR(RTC_PIT_vect) {
 
     ms_ticks++;
 
-	FeedbackUpdate();
+    FeedbackUpdate();
     FeederUpdate();
 }

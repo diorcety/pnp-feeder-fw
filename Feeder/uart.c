@@ -13,19 +13,19 @@ const int uart_baudrates[UART_MAX_BAUDRATE + 1] = {UART_BAUDRATE(1200),  UART_BA
 char UARTRead() {
     while (!(USART0.STATUS & USART_RXCIF_bm))
         ;
-	return USART0.RXDATAL;
+    return USART0.RXDATAL;
 }
 
 void UARTSend(char c) {
     while (!(USART0.STATUS & USART_DREIF_bm))
         ;
     USART0.TXDATAL = c;
-	USART0.STATUS = USART_TXCIF_bm;
+    USART0.STATUS = USART_TXCIF_bm;
 }
 
 void UARTWaitTx() {
-	while (!(USART0.STATUS & USART_TXCIF_bm))
-		;
+    while (!(USART0.STATUS & USART_TXCIF_bm))
+        ;
 }
 
 void UARTRx() {
@@ -47,6 +47,6 @@ void UARTInit() {
     VPORTA.DIR |= TX_bm | DE_bm;
 
     UARTSet(configuration.baudrate);
-	
-	USART0.CTRLB |= USART_TXEN_bm | USART_RXEN_bm;
+
+    USART0.CTRLB |= USART_TXEN_bm | USART_RXEN_bm;
 }
