@@ -169,9 +169,8 @@ void TimerStop() {
 }
 
 void TimerInit() {
-    RTC.CTRLA = RTC_PRESCALER_DIV1_gc   /* Pre-scaler: 1                    */
-                | 0 << RTC_RTCEN_bp;    /* 1: enable RTC                    */
+    RTC.CTRLA = RTC_PRESCALER_DIV1_gc;  /* Pre-scaler: 1                    */
     RTC.CLKSEL = RTC_CLKSEL_INT32K_gc;  /* clock source internal 32kHz RC   */
-    RTC.PITCTRLA = RTC_PERIOD_CYC32_gc; /* RTC Clock Cycles 32768           */
-	RTC.PITINTCTRL = RTC_PI_bm;         /* Periodic Interrupt: enabled      */
+    RTC.PITCTRLA = RTC_PERIOD_CYC32_gc; /* RTC Clock Cycles 32              */
+    RTC.PITINTCTRL = RTC_PI_bm;         /* Periodic Interrupt: enabled      */
 }
