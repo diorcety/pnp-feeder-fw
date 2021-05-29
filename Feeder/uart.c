@@ -1,5 +1,6 @@
 #include "uart.h"
 #include "configuration.h"
+#include "periph.h"
 #include <avr/io.h>
 
 #define UROUND(x) ((2UL*(x)+1)/2)
@@ -28,11 +29,11 @@ void UARTWaitTx() {
 }
 
 void UARTRx() {
-    VPORTA.OUT &= ~PIN1_bm;
+    VPORTA.OUT &= ~DE_bm;
 }
 
 void UARTTx() {
-    VPORTA.OUT |= PIN1_bm;
+    VPORTA.OUT |= DE_bm;
 }
 
 void UARTSet(int speed) {
@@ -41,9 +42,9 @@ void UARTSet(int speed) {
 }
 
 void UARTInit() {
-    VPORTA.OUT &= ~PIN1_bm;
-    VPORTA.DIR &= ~PIN7_bm;
-    VPORTA.DIR |= PIN6_bm | PIN1_bm;
+    VPORTA.OUT &= ~DE_bm;
+    VPORTA.DIR &= ~RX_bm;
+    VPORTA.DIR |= TX_bm | DE_bm;
 
     UARTSet(configuration.baudrate);
 	

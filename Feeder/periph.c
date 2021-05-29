@@ -16,7 +16,7 @@ static uint16_t feedback_ticks;
 static uint8_t feedback_value;
 
 uint8_t FeedbackGet() {
-    return (VPORTA.IN >> PIN2_bp) & 0x1;
+    return (VPORTA.IN & FEEDBACK_bm) != 0;
 }
 
 void FeedbackUpdate() {
@@ -84,24 +84,24 @@ void FeedbackUpdate() {
 
 void FeedbackInit() {
     /* Feedback */
-    VPORTA.DIR &= ~PIN2_bm;
-    PORTA.PIN2CTRL |= PORT_PULLUPEN_bm;
+    VPORTA.DIR &= ~FEEDBACK_bm;
+    PORTA.FEEDBACK_CTRL |= PORT_PULLUPEN_bm;
 
-	feedback_ticks = 0;
-	feedback_value = FeedbackGet();
+    feedback_ticks = 0;
+    feedback_value = FeedbackGet();
 }
 
 void MotorStart() {
-    VPORTA.OUT |= PIN0_bm;
+    VPORTA.OUT |= MOTOR_bm;
 }
 
 void MotorStop() {
-    VPORTA.OUT &= ~PIN0_bm;
+    VPORTA.OUT &= ~MOTOR_bm;
 }
 
 void MotorInit() {
     /* Motor */
-    VPORTA.OUT &= ~PIN0_bm;
+    VPORTA.OUT &= ~MOTOR_bm;
     if (MotorEnabled()) {
         MotorEnable();
     } else {
@@ -111,12 +111,12 @@ void MotorInit() {
 
 void MotorEnable() {
     configuration.options &= ~FEEDER_OPTION_MOTOR_DISABLED_bm;
-    VPORTA.DIR |= PIN0_bm;
+    VPORTA.DIR |= MOTOR_bm;
 }
 
 void MotorDisable() {
     configuration.options |= FEEDER_OPTION_MOTOR_DISABLED_bm;
-    VPORTA.DIR &= ~PIN0_bm;
+    VPORTA.DIR &= ~MOTOR_bm;
 }
 
 uint8_t MotorEnabled() {
@@ -143,7 +143,7 @@ uint16_t ServoGet() {
 
 void ServoInit() {
     /* PWM */
-    VPORTA.DIR |= (PIN3_bm);
+    VPORTA.DIR |= PWM_bm;
 
     /* Set Normal mode */
     TCA0.SINGLE.CTRLB = TCA_SINGLE_CMP0EN_bm                /* Update pin              */
