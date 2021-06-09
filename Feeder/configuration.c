@@ -8,6 +8,6 @@ const struct Configuration defaultConfiguration = {'Z',
                                                    FEEDER_SERVO_MAX,
                                                    (FEEDER_SERVO_MAX + FEEDER_SERVO_MIN) / 2,
                                                    FEEDER_SERVO_MIN,
-                                                   FEEDER_OPTION_DISABLED_bm,
+                                                   FEEDER_OPTION_DISABLED_bm | FEEDER_OPTION_MOTOR_DISABLED_bm,
                                                    0x0};
 struct Configuration configuration;
