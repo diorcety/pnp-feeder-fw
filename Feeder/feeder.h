@@ -35,7 +35,7 @@ extern uint8_t position;
 
 extern uint16_t remaining_length;
 extern uint16_t last_action;
-extern uint16_t ms_ticks;
+extern volatile uint16_t ms_ticks;
 
 void FeederAdvance(uint16_t length);
 void FeederEnable();

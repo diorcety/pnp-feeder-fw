@@ -2,14 +2,9 @@
 #define UART_H_
 #include "mcu.h"
 
-#define UARTCheckedRead()                                                                                              \
-    c = UARTRead();                                                                                                    \
-    if (c == C_RST)                                                                                                    \
-        MCUReset();
-
 #define UART_MAX_BAUDRATE 7
 
-char UARTRead();
+int  UARTRead();
 void UARTSend(char c);
 void UARTRx();
 void UARTTx();

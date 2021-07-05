@@ -172,3 +172,13 @@ void TimerInit() {
     RTC.PITCTRLA = RTC_PERIOD_CYC32_gc; /* RTC Clock Cycles 32              */
     RTC.PITINTCTRL = RTC_PI_bm;         /* Periodic Interrupt: enabled      */
 }
+
+void TimerDelay(uint16_t delay) {
+    uint16_t current_ticks = ms_ticks;
+    while (abs(ms_ticks - current_ticks) < delay) {
+        _NOP(); _NOP(); _NOP(); _NOP();
+        _NOP(); _NOP(); _NOP(); _NOP();
+        _NOP(); _NOP(); _NOP(); _NOP();
+        _NOP(); _NOP(); _NOP(); _NOP();
+    }
+}

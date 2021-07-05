@@ -6,6 +6,13 @@
 #include "periph.h"
 #include "uart.h"
 
+#define UARTCheckedRead() \
+    c = UARTRead();       \
+    if (c < 0)            \
+        goto idle;        \
+    if (c == C_RST)       \
+        MCUReset();
+
 int main(void) {
     MCUInit();
     EEPROMInit();
@@ -15,8 +22,10 @@ int main(void) {
     MotorInit();
     TimerInit();
     FeederInit();
+    
+    TimerStart();
 
-    char c;
+    int c;
     int i;
 
 idle:
@@ -46,11 +55,14 @@ idle:
         }
     }
 
-    /* Prepare to reply */
-    UARTTx();
-
     /* Handle the command */
     Handle();
+    
+    /* Prepare to reply */
+    UARTTx();
+    
+    /* Wait a bit before replying */
+    TimerDelay(3);
 
     /* Reply */
     i = 0;
@@ -75,6 +87,8 @@ ISR(RTC_PIT_vect) {
 
     ms_ticks++;
 
-    FeedbackUpdate();
-    FeederUpdate();
+    if (FeederEnabled()) {
+        FeedbackUpdate();
+        FeederUpdate();
+    }
 }

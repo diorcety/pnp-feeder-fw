@@ -3,6 +3,7 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <avr/cpufunc.h>
 
 #define F_CLK_PER 2000000
 #define F_US 1000000

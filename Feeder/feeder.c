@@ -10,7 +10,7 @@ enum FeederPosition position;
 
 uint16_t remaining_length;
 uint16_t last_action;
-uint16_t ms_ticks;
+uint16_t volatile ms_ticks;
 
 static void FeederGoTo(uint8_t nposition, uint16_t pos) {
     position = nposition;
@@ -30,7 +30,6 @@ void FeederEnable() {
     remaining_length = 0;
     FeederGoTo(pORIGIN, configuration.origin);
     ServoStart();
-    TimerStart();
 }
 
 void FeederDisable() {

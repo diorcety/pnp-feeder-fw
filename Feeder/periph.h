@@ -30,5 +30,6 @@ void ServoInit();
 void TimerStart();
 void TimerStop();
 void TimerInit();
+void TimerDelay(uint16_t delay);
 
 #endif /* PERIPH_H_ */
