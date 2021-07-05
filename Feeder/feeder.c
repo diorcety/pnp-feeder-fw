@@ -5,15 +5,22 @@
 #include <stdlib.h>
 
 /* FEEDER */
-enum sFeederState state;
+enum FeederState state;
+enum FeederPosition position;
 
 uint16_t remaining_length;
-uint16_t current_length;
 uint16_t last_action;
 uint16_t ms_ticks;
 
+static void FeederGoTo(uint8_t nposition, uint16_t pos) {
+    position = nposition;
+    last_action = ms_ticks;
+    ServoSet(pos);
+}
+
 void FeederAdvance(uint16_t length) {
     remaining_length = length;
+    state = sMOVING;
 }
 
 void FeederEnable() {
@@ -21,7 +28,7 @@ void FeederEnable() {
     state = sIDLE;
     ms_ticks = 0;
     remaining_length = 0;
-    current_length = 0;
+    FeederGoTo(pORIGIN, configuration.origin);
     ServoStart();
     TimerStart();
 }
@@ -58,38 +65,34 @@ void FeederInit() {
     }
 }
 
-static void FeederGoTo(uint8_t nstate, uint16_t pos) {
-    state = nstate;
-    last_action = ms_ticks;
-    ServoSet(pos);
-}
-
 void FeederUpdate() {
-    switch (state) {
-    case sDISABLED:
-        break;
-    case sIDLE:
-        if (remaining_length == 0)
-            break;
-    case sORIGIN:
-        if (abs(ms_ticks - last_action) > configuration.time_to_settle) {
+    if (state != sMOVING) return;
+
+    if (abs(ms_ticks - last_action) > configuration.time_to_settle) {
+        switch(position)
+        {
+        case pORIGIN:
             if (remaining_length >= FEEDER_MECHANICAL_ADVANCE_LENGTH) {
-                current_length = FEEDER_MECHANICAL_ADVANCE_LENGTH;
-                FeederGoTo(sFULL, configuration.full);
+                remaining_length -= FEEDER_MECHANICAL_ADVANCE_LENGTH;
+                FeederGoTo(pFULL, configuration.full);
             } else if (remaining_length >= FEEDER_MECHANICAL_ADVANCE_LENGTH / 2) {
-                current_length = FEEDER_MECHANICAL_ADVANCE_LENGTH / 2;
-                FeederGoTo(sHALF, configuration.half);
+                remaining_length -= FEEDER_MECHANICAL_ADVANCE_LENGTH / 2;
+                FeederGoTo(pHALF, configuration.half);
             } else {
                 state = sIDLE;
             }
+            break;
+        case pHALF:
+            if (remaining_length >= FEEDER_MECHANICAL_ADVANCE_LENGTH / 2) {
+                remaining_length -= FEEDER_MECHANICAL_ADVANCE_LENGTH / 2;
+                FeederGoTo(pFULL, configuration.full);
+            } else {
+                state = sIDLE;
+            }
+            break;
+        case pFULL:
+            FeederGoTo(pORIGIN, configuration.origin);
+            break;
         }
-        break;
-    case sHALF:
-    case sFULL:
-        if (abs(ms_ticks - last_action) > configuration.time_to_settle) {
-            remaining_length -= current_length;
-            FeederGoTo(sORIGIN, configuration.origin);
-        }
-        break;
     }
 }

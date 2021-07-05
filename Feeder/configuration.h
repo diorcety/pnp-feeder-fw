@@ -7,9 +7,9 @@ struct Configuration {
     uint8_t baudrate;
     uint8_t feed_length;
     uint16_t time_to_settle;
-    uint16_t origin;
-    uint16_t half;
     uint16_t full;
+    uint16_t half;
+    uint16_t origin;
     uint8_t options;
     uint8_t magic;
 };

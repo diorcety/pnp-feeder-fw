@@ -154,8 +154,6 @@ void ServoInit() {
 
     /* Start the PWM */
     TCA0.SINGLE.CTRLA = PWM_DIV << TCA_SINGLE_CLKSEL_gp;    /* Divider: 2              */
-
-    ServoSet(configuration.origin);
 }
 
 void TimerStart() {

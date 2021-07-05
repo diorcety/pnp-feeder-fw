@@ -18,18 +18,22 @@
 #define FEEDER_TTS_MIN 0
 #define FEEDER_TTS_MAX 10000
 
-enum sFeederState {
-    sDISABLED,
-    sIDLE,
-    sORIGIN,
-    sHALF,
-    sFULL,
+enum FeederState {
+    sDISABLED = 0,
+    sIDLE = 1,
+    sMOVING = 2
+};
+
+enum FeederPosition {
+    pORIGIN = 0,
+    pHALF = 1,
+    pFULL = 2
 };
 
 extern uint8_t state;
+extern uint8_t position;
 
 extern uint16_t remaining_length;
-extern uint16_t current_length;
 extern uint16_t last_action;
 extern uint16_t ms_ticks;
 
