@@ -30,8 +30,8 @@ enum FeederPosition {
     pFULL = 2
 };
 
-extern uint8_t state;
-extern uint8_t position;
+extern enum FeederState state;
+extern enum FeederPosition position;
 
 extern uint16_t remaining_length;
 extern uint16_t last_action;

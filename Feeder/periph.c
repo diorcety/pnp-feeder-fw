@@ -152,7 +152,7 @@ void ServoInit() {
     /* Set the period */
     TCA0.SINGLE.PER = TCA_PERIOD(PWM_DIV, SERVO_FREQUENCY);
 
-    /* Start the PWM */
+    /* Set the prescaler */
     TCA0.SINGLE.CTRLA = PWM_DIV << TCA_SINGLE_CLKSEL_gp;    /* Divider: 2              */
 }
 

@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-inline int myatoi(const char* str, int* v) {
+inline static int myatoi(const char* str, int* v) {
     int val = 0;
     while (*str) {
         char c = *str++;
